@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductList from './components/ProductList'
 
 function App() {
@@ -14,6 +14,10 @@ function App() {
     const newProduct = products.filter(product => product.id !== productId);
     setProducts(newProduct);
   }
+  
+  useEffect(() => {
+    console.log('Use Effect Running');
+  }, []);
   
   return (
     <div>
