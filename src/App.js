@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
-import ProductList from './components/ProductList'
+import { useState } from "react"
+import ProductList from './components/ProductList';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import About from './components/About';
+import Contact from './components/Contact';
 
 function App() {
   const [products, setProducts] = useState([
@@ -9,23 +12,27 @@ function App() {
     {id: 4, title: 'Product 4', price: 763},
     {id: 5, title: 'Product 5', price: 389}
   ]);
-
-  const [name, setName] = useState('Miodrag')
   
   const deleteProduct = (productId) => {
     const newProduct = products.filter(product => product.id !== productId);
     setProducts(newProduct);
   }
-  
-  useEffect(() => {
-    console.log('Use Effect Running');
-  }, [name]);
-  
+
   return (
     <div>
-      <ProductList products={ products } deleteProduct={ deleteProduct } />
-      <button onClick={ () => setName('Mitić') }>Promeni ime</button>
-      <p>Ime: { name }</p>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <ProductList products={ products } deleteProduct={ deleteProduct } />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/contact">
+            <Contact />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
